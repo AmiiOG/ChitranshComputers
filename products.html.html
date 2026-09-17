@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products & Accessories Store | Chitransh Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Store & E-commerce Custom Styles */
+        .store-header {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .store-header h1 { font-size: 30px; margin-bottom: 10px; }
+        .store-header p { color: #cbd5e1; font-size: 16px; }
+
+        /* Search & Filter Section */
+        .filter-controls {
+            max-width: 1200px;
+            margin: -25px auto 30px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box input:focus { border-color: #059669; }
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        /* Filter Pills */
+        .category-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pill-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .pill-btn.active, .pill-btn:hover {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        /* Product Cards Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        .product-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .product-img-wrap {
+            height: 170px;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 65px;
+            color: #0f2c59;
+            border-bottom: 1px solid #f1f5f9;
+            position: relative;
+        }
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #0f2c59;
+            color: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .product-details {
+            padding: 18px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .product-desc {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .product-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #059669;
+        }
+        .stock-tag {
+            font-size: 12px;
+            color: #16a34a;
+            font-weight: 600;
+            background: #dcfce7;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+        .buy-wa-btn {
+            background: #25D366;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+        .buy-wa-btn:hover { background: #1eb954; }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: #64748b;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="forms.html">Online Forms</a></li>
+                <li><a href="banking-legal.html">Banking & Legal</a></li>
+                <li><a href="products.html" class="active">Store & Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Store Hero -->
+    <div class="store-header">
+        <h1>कंप्यूटर एक्सेसरीज, स्टेशनरी & प्रिंटिंग स्टोर</h1>
+        <p>मनपसंद सामान चुनें और सीधे वॉट्सऐप पर ऑर्डर / पूछताछ करें</p>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="filter-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="प्रोडक्ट खोजें (जैसे: Mouse, Pen Drive, Paper, Shagun Lifafa)...">
+        </div>
+        <div class="category-pills">
+            <button class="pill-btn active" onclick="filterCategory('all', this)">सभी प्रोडक्ट्स (All)</button>
+            <button class="pill-btn" onclick="filterCategory('accessories', this)">कंप्यूटर & मोबाइल</button>
+            <button class="pill-btn" onclick="filterCategory('stationery', this)">कॉलेज स्टेशनरी</button>
+            <button class="pill-btn" onclick="filterCategory('printing', this)">प्रिंटिंग & जेरोक्स</button>
+            <button class="pill-btn" onclick="filterCategory('special', this)">शगुन लिफाफे & गिफ्ट</button>
+        </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productContainer">
+
+        <!-- Product 1 -->
+        <div class="product-card" data-category="accessories" data-name="sandisk 32gb 64gb pendrive usb 3.0">
+            <div class="product-img-wrap">
+                <span class="badge">Accessories</span>
+                <i class="fas fa-hdd"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">SanDisk 32GB / 64GB Pen Drive</h3>
+                    <p class="product-desc">High Speed USB 3.0 मेटल/प्लास्टिक बॉडी, 5 साल वारंटी।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹399/- से शुरू</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*SanDisk%20Pen%20Drive*%20kharidna%20hai." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card" data-category="accessories" data-name="usb optical mouse optical mouse">
+            <div class="product-img-wrap">
+                <span class="badge">Accessories</span>
+                <i class="fas fa-mouse"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">USB Optical Mouse</h3>
+                    <p class="product-desc">स्मूथ ट्रैकिंग, मजबूत केबल, लैपटॉप और PC दोनों के लिए बेस्ट।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹199/-</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*USB%20Optical%20Mouse*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card" data-category="accessories" data-name="fast charging type-c data cable">
+            <div class="product-img-wrap">
+                <span class="badge">Accessories</span>
+                <i class="fas fa-plug"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">फास्ट चार्जिंग Type-C केबल</h3>
+                    <p class="product-desc">ब्रेडेड मजबूत वायर, 65W तक फास्ट चार्जिंग सपोर्ट।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹120/-</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*Fast%20Charging%20Data%20Cable*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card" data-category="printing" data-name="a4 xerox copier paper rim 500 sheets">
+            <div class="product-img-wrap">
+                <span class="badge" style="background: #059669;">Printing</span>
+                <i class="fas fa-copy"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">A4 जेरोक्स पेपर रिम (500 शीट्स)</h3>
+                    <p class="product-desc">75 GSM सुपर वाइट पेपर। प्रिंटिंग व फोटोकॉपी के लिए बेस्ट।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹280/-</span>
+                        <span class="stock-tag">बल्क स्टॉक</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*A4%20Paper%20Rim*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card" data-category="printing" data-name="glossy photo paper a4 4x6">
+            <div class="product-img-wrap">
+                <span class="badge" style="background: #059669;">Printing</span>
+                <i class="fas fa-image"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">प्रीमियम ग्लॉसी फोटो पेपर</h3>
+                    <p class="product-desc">HD 180/210 GSM वाटरप्रूफ फोटो प्रिंटिंग पेपर पैक।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹220/-</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*Photo%20Paper*%20pack%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card" data-category="stationery" data-name="college register notebook hard cover">
+            <div class="product-img-wrap">
+                <span class="badge" style="background: #d97706;">Stationery</span>
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">कॉलेज रजिस्टर (हार्ड कवर)</h3>
+                    <p class="product-desc">दयानंद कॉलेज के छात्रों के लिए बढ़िया क्वालिटी नोटबुक।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹60 - ₹120/-</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*College%20Register*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card" data-category="stationery" data-name="project files strip folders">
+            <div class="product-img-wrap">
+                <span class="badge" style="background: #d97706;">Stationery</span>
+                <i class="fas fa-folder-open"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">प्रोजेक्ट फाइल्स & स्ट्रिप फोल्डर</h3>
+                    <p class="product-desc">असाइनमेंट, प्रैक्टिकल फाइल और सर्टिफिकेट रखने हेतु।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹15 - ₹35/-</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*Project%20Files*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card" data-category="special" data-name="shagun lifafe wedding envelopes golden">
+            <div class="product-img-wrap">
+                <span class="badge" style="background: #dc2626;">Special</span>
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <div class="product-details">
+                <div>
+                    <h3 class="product-title">शादी-ब्याह के शगुन लिफाफे</h3>
+                    <p class="product-desc">गोल्डन और एम्बॉस प्रिंटिंग वाले सुंदर शगुन पैकेट (10 पीस)।</p>
+                </div>
+                <div>
+                    <div class="price-row">
+                        <span class="product-price">₹50/- (पैक)</span>
+                        <span class="stock-tag">उपलब्ध है</span>
+                    </div>
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*Shagun%20Lifafe*%20chahiye." class="buy-wa-btn">
+                        <i class="fab fa-whatsapp"></i> वॉट्सऐप पर आर्डर करें
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- No search results fallback -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px;"></i>
+            <p>माफ़ करें, यह प्रोडक्ट अभी लिस्ट में नहीं मिला। आप सीधे वॉट्सऐप पर पूछ सकते हैं!</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="floating-actions">
+        <a href="tel:+918303134606" class="float-btn float-call"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">Chitransh Computers Store • बछरावां • ऑर्डर हेल्पलाइन: 8303134606</div>
+    </footer>
+
+    <!-- Interactive Filtering & Search Script -->
+    <script src="script.js"></script>
+    <script>
+        let currentCategory = 'all';
+
+        function filterCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', applyFilters);
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                const name = card.getAttribute('data-name');
+
+                const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+                const matchesSearch = name.includes(query);
+
+                if (matchesCat && matchesSearch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
