@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact & Location | Chitransh Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="forms.html">Online Forms</a></li>
+                <li><a href="banking-legal.html">Banking & Legal</a></li>
+                <li><a href="store.html">Store & Stationery</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section-title">
+            <h2>हमसे संपर्क करें & दुकान की लोकेशन</h2>
+            <p>किसी भी सेवा के लिए कॉल करें या दुकान पर आएं</p>
+        </div>
+
+        <div class="grid-3">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-map-marker-alt" style="font-size: 35px; color: #059669; margin-bottom: 15px;"></i>
+                <h3>दुकान का पता</h3>
+                <p style="font-weight: 600; font-size: 16px;">दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में,</p>
+                <p>बछरावां, रायबरेली, उत्तर प्रदेश</p>
+                <p style="margin-top: 10px; color: var(--accent-green); font-weight: bold;">समय: सुबह 8:00 से रात 8:00 बजे तक (प्रतिदिन)</p>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <i class="fab fa-whatsapp" style="font-size: 35px; color: #25D366; margin-bottom: 15px;"></i>
+                <h3>घर बैठे फॉर्म भरवाएं</h3>
+                <p>कॉलेज या घर से सीधे वॉट्सऐप पर डॉक्यूमेंट भेजें और ऑनलाइन फॉर्म का प्रिंट प्राप्त करें।</p>
+                <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20apne%20documents%20bhejne%20hain%20form%20bharwane%20ke%20liye." class="card-btn" style="background: #25D366; margin-top: 15px;">
+                    <i class="fab fa-whatsapp"></i> वॉट्सऐप पर डॉक्यूमेंट भेजें
+                </a>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-phone-volume" style="font-size: 35px; color: #1e40af; margin-bottom: 15px;"></i>
+                <h3>सीधा कॉल करें</h3>
+                <p>किसी भी सरकारी योजना, स्कॉलरशिप या बैंकिंग संबंधी जानकारी के लिए तुरंत बात करें।</p>
+                <a href="tel:+918303134606" class="card-btn" style="margin-top: 15px;">
+                    <i class="fas fa-phone"></i> +91 8303134606 पर कॉल करें
+                </a>
+            </div>
+        </div>
+
+        <!-- Google Maps Embed Section -->
+        <div style="margin-top: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <iframe 
+                src="https://www.google.com/maps?q=Dayanand+Bachhrawan+PG+College+Bachhrawan&output=embed" 
+                width="100%" 
+                height="380" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <div class="floating-actions">
+        <a href="tel:+918303134606" class="float-btn float-call"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <footer>
+        <div class="footer-bottom">Copyright © Chitransh Computers • Bachhrawan</div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
