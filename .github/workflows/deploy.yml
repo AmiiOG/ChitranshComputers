@@ -15,4 +15,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
-          projectId: web:NjcyOTYxMmItODhjNy00N2YzLWI2ZDAtOGRjMWRiNWUzNmUy
+          projectId: chitransh-computers
