@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Document Checklist | Chitransh Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .checklist-hero {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .checklist-hero h1 { font-size: 32px; margin-bottom: 8px; }
+        .checklist-hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; margin: auto; }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        /* Selector Card */
+        .selector-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        .selector-card label {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f2c59;
+            margin-bottom: 10px;
+        }
+        .select-service {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            outline: none;
+            transition: 0.3s;
+            background: #f8fafc;
+        }
+        .select-service:focus { border-color: #059669; background: #fff; }
+
+        /* Checklist Result Card */
+        .checklist-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+        }
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .checklist-header h2 {
+            font-size: 22px;
+            color: #0f2c59;
+        }
+        .time-guide {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Progress Bar */
+        .progress-wrap {
+            margin-bottom: 25px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 14px;
+        }
+        .progress-bar {
+            background: #059669;
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        .progress-text {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Checkbox Items */
+        .doc-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .doc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1.5px solid #f1f5f9;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background: #fafbfc;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .doc-item:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+        .doc-item.checked {
+            border-color: #a7f3d0;
+            background: #f0fdf4;
+        }
+        .doc-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #059669;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        .doc-details {
+            flex-grow: 1;
+        }
+        .doc-name {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 15px;
+        }
+        .doc-note {
+            font-size: 12.5px;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        /* WhatsApp CTA Box */
+        .action-box {
+            background: linear-gradient(135deg, #e0f2fe, #dcfce7);
+            border-radius: 10px;
+            padding: 22px;
+            text-align: center;
+        }
+        .action-box h3 {
+            color: #0f2c59;
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+        .action-box p {
+            color: #475569;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .btn-wa-checklist {
+            background: #25D366;
+            color: #ffffff;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-wa-checklist:hover { background: #1eb954; }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="forms.html">Online Forms</a></li>
+                <li><a href="banking-legal.html">Banking & Legal</a></li>
+                <li><a href="products.html">Store & Products</a></li>
+                <li><a href="tools.html">Student Tools</a></li>
+                <li><a href="checklist.html" class="active">Document Checklist</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <div class="checklist-hero">
+        <h1>स्मार्ट डॉक्यूमेंट चेकलिस्ट & फॉर्म गाइड</h1>
+        <p>दुकान आने या फॉर्म भरने से पहले चेक करें कि आपके सभी कागजात तैयार हैं या नहीं</p>
+    </div>
+
+    <div class="main-container">
+
+        <!-- Selector Card -->
+        <div class="selector-card">
+            <label for="serviceSelect"><i class="fas fa-list-check" style="color: #059669;"></i> वह फॉर्म या सेवा चुनें जिसके कागजात देखने हैं:</label>
+            <select id="serviceSelect" class="select-service" onchange="loadChecklist()">
+                <option value="up_scholarship_fresh">UP छात्रवृत्ति (Fresh - नया आवेदन)</option>
+                <option value="up_scholarship_renewal">UP छात्रवृत्ति (Renewal - नवीनीकरण)</option>
+                <option value="lu_exam_form">लखनऊ विश्वविद्यालय (LU) / दयानंद कॉलेज परीक्षा फॉर्म</option>
+                <option value="police_bharti">UP पुलिस कांस्टेबल / SI भर्ती</option>
+                <option value="ssc_forms">SSC (GD, CGL, CHSL, MTS) & OTR</option>
+                <option value="boi_account">Bank of India (BOI) नया बैंक खाता खोलना</option>
+                <option value="estamp_affidavit">ई-स्टाम्प & शपथ पत्र (Affidavit)</option>
+                <option value="pan_card">नया पैन कार्ड (PAN Card)</option>
+                <option value="ayushman_card">आयुष्मान भारत गोल्डन कार्ड (₹5 लाख फ्री इलाज)</option>
+            </select>
+        </div>
+
+        <!-- Dynamic Checklist Container -->
+        <div class="checklist-box">
+            <div class="checklist-header">
+                <h2 id="checklistTitle">UP छात्रवृत्ति (Fresh) जरूरी दस्तावेज</h2>
+                <span class="time-guide" id="timeGuide">⏱️ समय: 15-20 मिनट</span>
+            </div>
+
+            <div class="progress-text">
+                <span id="progressCount">कागजात तैयार: 0 / 0</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-wrap">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
+            <!-- List Items -->
+            <ul class="doc-list" id="docListContainer">
+                <!-- Dynamically populated by JS -->
+            </ul>
+
+            <!-- Action Box -->
+            <div class="action-box">
+                <h3>कागजात पूरे हैं या घर बैठे फॉर्म भरवाना चाहते हैं?</h3>
+                <p>दुकान आने की जरूरत नहीं—अपने कागजातों की फोटो सीधे वॉट्सऐप पर भेजें और बिना गलती 100% सही फॉर्म भरवाएं।</p>
+                <a href="#" id="waChecklistBtn" class="btn-wa-checklist" target="_blank">
+                    <i class="fab fa-whatsapp"></i> वॉट्सऐप पर दस्तावेज भेजें (8303134606)
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Sticky Action Buttons -->
+    <div class="floating-actions">
+        <a href="tel:+918303134606" class="float-btn float-call" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa" target="_blank" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- Master Professional Footer (Full 3-Column) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Chitransh Computers</h4>
+                <p>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में, बछरावां, रायबरेली।</p>
+                <p style="margin-top: 8px;"><strong>दुकान का समय:</strong> प्रतिदिन सुबह 8:00 AM से रात 8:00 PM तक</p>
+            </div>
+            <div class="footer-col">
+                <h4>सभी प्रमुख सेवाएं</h4>
+                <p><a href="index.html">होम पेज (Home)</a></p>
+                <p><a href="forms.html">कॉलेज & स्कॉलरशिप फॉर्म्स</a></p>
+                <p><a href="banking-legal.html">बैंकिंग, ई-स्टाम्प & एफिडेविट</a></p>
+                <p><a href="products.html">कंप्यूटर एक्सेसरीज & स्टेशनरी स्टोर</a></p>
+                <p><a href="tools.html">छात्र टूलकिट & कंप्रेसर</a></p>
+                <p><a href="checklist.html">डॉक्यूमेंट चेकलिस्ट गाइड</a></p>
+                <p><a href="contact.html">लोकेशन मैप & संपर्क</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>हेल्पलाइन & संपर्क</h4>
+                <p><i class="fas fa-phone-alt"></i> कॉल करें: <a href="tel:+918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p><i class="fab fa-whatsapp"></i> वॉट्सऐप: <a href="https://wa.me/918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p style="margin-top: 10px; color: #cbd5e1; font-size: 13.5px;">
+                    ⚡ घर बैठे फॉर्म भरवाने या कोई भी सामान आर्डर करने के लिए वॉट्सऐप पर संपर्क करें।
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright © Chitransh Computers. All rights reserved. | Dayanand Bachhrawan PG College Gate
+        </div>
+    </footer>
+
+    <!-- Interactive Checklist Script -->
+    <script src="script.js"></script>
+    <script>
+        const checklistData = {
+            up_scholarship_fresh: {
+                title: "UP छात्रवृत्ति (Fresh) जरूरी दस्तावेज",
+                time: "⏱️ समय: 15-20 मिनट",
+                docs: [
+                    { name: "आधार कार्ड", note: "आधार से मोबाइल नंबर लिंक होना अनिवार्य है (OTP हेतु)।" },
+                    { name: "पिछली कक्षा की मार्कशीट", note: "हाईस्कूल, इंटर या पिछले वर्ष का रिजल्ट।" },
+                    { name: "आय प्रमाण पत्र (Income Certificate)", note: "तहसील द्वारा जारी, 3 साल के भीतर का।" },
+                    { name: "जाति प्रमाण पत्र (Caste Certificate)", note: "SC/ST/OBC छात्रों के लिए अनिवार्य।" },
+                    { name: "निवास प्रमाण पत्र (Domicile)", note: "उत्तर प्रदेश का मूल निवास प्रमाण पत्र।" },
+                    { name: "बैंक पासबुक", note: "खाता आधार और NPCI से लिंक होना चाहिए।" },
+                    { name: "कॉलेज फीस रसीद व अलॉटमेंट लेटर", note: "दयानंद कॉलेज या जिस कॉलेज में दाखिला लिया है।" },
+                    { name: "पासपोर्ट साइज रंगीन फोटो", note: "हाल ही में खिंचवाई गई नवीनतम फोटो।" }
+                ]
+            },
+            up_scholarship_renewal: {
+                title: "UP छात्रवृत्ति (Renewal) जरूरी दस्तावेज",
+                time: "⏱️ समय: 10-15 मिनट",
+                docs: [
+                    { name: "पिछले वर्ष का रजिस्ट्रेशन नंबर", note: "पुराने स्कॉलरशिप फॉर्म की कॉपी या नंबर।" },
+                    { name: "पिछले वर्ष का रिजल्ट / मार्कशीट", note: "पास होने की मार्कशीट व पूर्णांक/प्राप्तांक।" },
+                    { name: "वर्तमान वर्ष की कॉलेज फीस रसीद", note: "नया फीस जमा करने का विवरण।" },
+                    { name: "आधार कार्ड & रजिस्टर्ड मोबाइल", note: "e-KYC वेरिफिकेशन OTP के लिए।" },
+                    { name: "बैंक खाता सक्रियता", note: "बैंक खाता चालू और NPCI लिंक होना चाहिए।" }
+                ]
+            },
+            lu_exam_form: {
+                title: "लखनऊ यूनिवर्सिटी (LU) / कॉलेज परीक्षा फॉर्म",
+                time: "⏱️ समय: 10 मिनट",
+                docs: [
+                    { name: "LU रोल नंबर / कॉलेज अलॉटमेंट नंबर", note: "एडमिट कार्ड या पिछले सेमेस्टर की रसीद।" },
+                    { name: "पिछले सेमेस्टर की मार्कशीट", note: "सब्जेक्ट और रोल नंबर मिलान हेतु।" },
+                    { name: "आधार कार्ड", note: "पहचान सत्यापन के लिए।" },
+                    { name: "पासपोर्ट साइज फोटो व सिग्नेचर", note: "डिजिटल कॉपी अपलोड करने हेतु।" }
+                ]
+            },
+            police_bharti: {
+                title: "UP पुलिस भर्ती ऑनलाइन आवेदन दस्तावेज",
+                time: "⏱️ समय: 15-25 मिनट",
+                docs: [
+                    { name: "10वीं एवं 12वीं की मार्कशीट", note: "रोल नंबर, बोर्ड और पासिंग ईयर।" },
+                    { name: "मूल निवास प्रमाण पत्र", note: "UP राज्य का मूल निवासी होने का प्रमाण।" },
+                    { name: "जाति प्रमाण पत्र (OBC/SC/ST/EWS)", note: "नोटिफिकेशन की तय तारीख के भीतर का।" },
+                    { name: "आधार कार्ड", note: "पहचान पत्र एवं बायोमेट्रिक सत्यापन।" },
+                    { name: "पासपोर्ट साइज फोटो (सफेद/ग्रे बैकग्राउंड)", note: "स्पष्ट चेहरा और दोनों कान दिखने चाहिए।" },
+                    { name: "काली स्याही से किया गया सिग्नेचर", note: "हस्ताक्षर साफ होना चाहिए।" }
+                ]
+            },
+            ssc_forms: {
+                title: "SSC (GD, CGL, CHSL, MTS) & OTR दस्तावेज",
+                time: "⏱️ समय: 15-20 मिनट",
+                docs: [
+                    { name: "10वीं की मार्कशीट", note: "रोल नंबर एवं बोर्ड का नाम।" },
+                    { name: "आधार कार्ड", note: "पहचान एवं OTR रजिस्ट्रेशन हेतु।" },
+                    { name: "सक्रिय ईमेल आईडी & मोबाइल नंबर", note: "रजिस्ट्रेशन पासवर्ड और OTP प्राप्त करने हेतु।" },
+                    { name: "लाइव वेबकैम फोटो", note: "SSC नए पोर्टल पर लाइव फोटो कैप्चर होती है।" },
+                    { name: "साइन (हस्ताक्षर)", note: "10KB से 20KB के बीच की फाइल।" }
+                ]
+            },
+            boi_account: {
+                title: "Bank of India (BOI) खाता खोलने के दस्तावेज",
+                time: "⏱️ समय: 15 मिनट",
+                docs: [
+                    { name: "आधार कार्ड की ओरिजिनल कॉपी", note: "फिंगरप्रिंट वेरिफिकेशन के लिए।" },
+                    { name: "पैन कार्ड (PAN Card)", note: "यदि उपलब्ध न हो तो फॉर्म-60 भरा जाएगा।" },
+                    { name: "2 पासपोर्ट साइज फोटो", note: "हालिया खिंचवाई गई।" },
+                    { name: "आधार लिंक चालू मोबाइल नंबर", note: "तुरंत OTP प्राप्त करने के लिए।" }
+                ]
+            },
+            estamp_affidavit: {
+                title: "ई-स्टाम्प & शपथ पत्र (Affidavit) विवरण",
+                time: "⏱️ समय: 5-10 मिनट",
+                docs: [
+                    { name: "पहला पक्ष (First Party) का नाम व पता", note: "जिसके नाम से स्टाम्प कटना है।" },
+                    { name: "दूसरा पक्ष (Second Party) का नाम", note: "जैसे: प्राचार्य, दयानंद कॉलेज बछरावां।" },
+                    { name: "स्टाम्प का कारण", note: "गैप ईयर, एंटी-रैगिंग, एडमिशन या रेंट एग्रीमेंट।" },
+                    { name: "आधार कार्ड", note: "नाम व पते की सही स्पेलिंग मिलान हेतु।" }
+                ]
+            },
+            pan_card: {
+                title: "नया पैन कार्ड (PAN Card) दस्तावेज",
+                time: "⏱️ समय: 10 मिनट",
+                docs: [
+                    { name: "आधार कार्ड", note: "नाम, पिता का नाम और जन्मतिथि बिल्कुल सही होनी चाहिए।" },
+                    { name: "आधार लिंक मोबाइल नंबर", note: "ई-साइन OTP के लिए अनिवार्य (3 दिन में ई-पैन हेतु)।" },
+                    { name: "2 रंगीन पासपोर्ट फोटो", note: "फिजिकल कार्ड पर प्रिंट होने के लिए।" }
+                ]
+            },
+            ayushman_card: {
+                title: "आयुष्मान भारत कार्ड (₹5 लाख फ्री इलाज)",
+                time: "⏱️ समय: 5-10 मिनट",
+                docs: [
+                    { name: "राशन कार्ड (पात्र गृहस्थी या अंत्योदय)", note: "जिसमें 6 या उससे अधिक यूनिट हों।" },
+                    { name: "सभी सदस्यों का आधार कार्ड", note: "जिनका नाम लिस्ट में है।" },
+                    { name: "फिंगरप्रिंट या आधार OTP", note: "तुरंत e-KYC के लिए।" }
+                ]
+            }
+        };
+
+        function loadChecklist() {
+            const key = document.getElementById('serviceSelect').value;
+            const data = checklistData[key];
+            if (!data) return;
+
+            document.getElementById('checklistTitle').innerText = data.title;
+            document.getElementById('timeGuide').innerText = data.time;
+
+            const container = document.getElementById('docListContainer');
+            container.innerHTML = '';
+
+            data.docs.forEach((doc, idx) => {
+                const li = document.createElement('li');
+                li.className = 'doc-item';
+                li.id = 'item_' + idx;
+                li.onclick = function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        const cb = li.querySelector('input[type="checkbox"]');
+                        cb.checked = !cb.checked;
+                    }
+                    toggleItem(li);
+                };
+
+                li.innerHTML = `
+                    <input type="checkbox" onchange="toggleItem(this.parentElement)">
+                    <div class="doc-details">
+                        <div class="doc-name">${doc.name}</div>
+                        <div class="doc-note">${doc.note}</div>
+                    </div>
+                `;
+                container.appendChild(li);
+            });
+
+            updateProgress();
+            updateWhatsAppLink(data.title);
+        }
+
+        function toggleItem(li) {
+            const cb = li.querySelector('input[type="checkbox"]');
+            if (cb.checked) {
+                li.classList.add('checked');
+            } else {
+                li.classList.remove('checked');
+            }
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.doc-item').length;
+            const checked = document.querySelectorAll('.doc-item input:checked').length;
+            const percent = total === 0 ? 0 : Math.round((checked / total) * 100);
+
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressCount').innerText = `कागजात तैयार: ${checked} / ${total}`;
+            document.getElementById('progressPercent').innerText = percent + '%';
+        }
+
+        function updateWhatsAppLink(serviceName) {
+            const text = `Namaste Chitransh Computers!%0AMaine website par *${encodeURIComponent(serviceName)}* ki checklist check ki hai aur mere paas documents ready hain.%0AMujhe ye form process karwana hai.`;
+            document.getElementById('waChecklistBtn').href = `https://wa.me/918303134606?text=${text}`;
+        }
+
+        // Initial Load
+        loadChecklist();
+    </script>
+</body>
+</html>
