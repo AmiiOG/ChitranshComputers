@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Tools & Photo Resizer | Chitransh Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .tools-hero {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .tools-hero h1 { font-size: 32px; margin-bottom: 8px; }
+        .tools-hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; margin: auto; }
+
+        /* Container & Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Tool Box (Resizer) */
+        .resizer-card {
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+            padding: 30px;
+            margin-bottom: 45px;
+        }
+        .tool-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .tool-title h2 { color: #0f2c59; font-size: 26px; }
+        .tool-title p { color: #64748b; font-size: 14px; margin-top: 5px; }
+
+        /* Drag & Drop Upload Box */
+        .upload-area {
+            border: 2px dashed #059669;
+            background: #f0fdf4;
+            border-radius: 12px;
+            padding: 35px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
+        .upload-area:hover { background: #dcfce7; }
+        .upload-area i { font-size: 45px; color: #059669; margin-bottom: 10px; }
+        .upload-area p { color: #1e293b; font-weight: 600; font-size: 16px; }
+        .upload-area span { color: #64748b; font-size: 13px; }
+
+        /* Preset Buttons */
+        .preset-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .preset-btn {
+            background: #f1f5f9;
+            border: 1.5px solid #cbd5e1;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #1e293b;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .preset-btn.active, .preset-btn:hover {
+            background: #0f2c59;
+            color: #ffffff;
+            border-color: #0f2c59;
+        }
+
+        /* Preview & Result Section */
+        .preview-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            align-items: center;
+            text-align: center;
+        }
+        .preview-box img {
+            max-height: 180px;
+            max-width: 100%;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+        .size-info {
+            margin-top: 8px;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .btn-download {
+            display: none;
+            width: 100%;
+            max-width: 320px;
+            margin: auto;
+            background: #059669;
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-download:hover { background: #047857; }
+
+        /* Form Help Callout Banner */
+        .help-callout {
+            background: linear-gradient(135deg, #e0f2fe, #dcfce7);
+            border-left: 5px solid #059669;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .help-callout h4 { color: #0f2c59; font-size: 18px; margin-bottom: 4px; }
+        .help-callout p { color: #334155; font-size: 14px; }
+        .help-callout a {
+            background: #25D366;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Deadlines & Express Print Grid */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        @media (max-width: 850px) {
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Deadlines Card */
+        .deadline-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .deadline-card h3 { color: #0f2c59; font-size: 20px; margin-bottom: 15px; }
+        .deadline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e2e8f0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .deadline-item:last-child { border-bottom: none; }
+        .deadline-name { font-weight: 700; color: #1e293b; font-size: 15px; }
+        .deadline-sub { font-size: 12px; color: #64748b; }
+        .time-badge {
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12.5px;
+        }
+
+        /* Express Print Card */
+        .express-print-card {
+            background: linear-gradient(135deg, #0f2c59, #1e40af);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .express-print-card h3 { font-size: 20px; margin-bottom: 8px; color: #6ee7b7; }
+        .express-print-card p { font-size: 14px; color: #cbd5e1; line-height: 1.5; margin-bottom: 18px; }
+        .btn-express-wa {
+            background: #25D366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-express-wa:hover { background: #1eb954; }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="forms.html">Online Forms</a></li>
+                <li><a href="banking-legal.html">Banking & Legal</a></li>
+                <li><a href="products.html">Store & Products</a></li>
+                <li><a href="tools.html" class="active">Student Tools</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <div class="tools-hero">
+        <h1>छात्र टूलकिट: फोटो & साइन कंप्रेसर</h1>
+        <p>सरकारी फॉर्म, UP स्कॉलरशिप व कॉलेज फॉर्म हेतु अपनी फोटो और सिग्नेचर को तय KB में तुरंत तैयार करें</p>
+    </div>
+
+    <div class="main-container">
+
+        <!-- Tool: Image Resizer -->
+        <div class="resizer-card">
+            <div class="tool-title">
+                <h2><i class="fas fa-magic" style="color: #059669;"></i> ऑनलाइन फोटो & सिग्नेचर Resizer (फ्री)</h2>
+                <p>दुकान या घर से बिना किसी ऐप के फोटो का साइज 20KB-50KB और साइन का साइज 10KB-20KB बनाएं</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>यहाँ क्लिक करके अपनी फोटो या साइन चुनें</p>
+                <span>(JPG, JPEG या PNG फाइल)</span>
+                <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+            </div>
+
+            <!-- Presets -->
+            <div class="preset-buttons">
+                <button class="preset-btn active" id="btnPhoto" onclick="setPreset('photo')">
+                    📸 पासपोर्ट फोटो (20KB - 50KB)
+                </button>
+                <button class="preset-btn" id="btnSign" onclick="setPreset('sign')">
+                    ✍️ सिग्नेचर / हस्ताक्षर (10KB - 20KB)
+                </button>
+                <button class="preset-btn" id="btnCustom" onclick="setPreset('custom')">
+                    ⚙️ मध्यम साइज (Under 100KB)
+                </button>
+            </div>
+
+            <!-- Preview & Compression -->
+            <div class="preview-grid" id="previewArea">
+                <div class="preview-box">
+                    <p style="font-weight: bold; color: #64748b;">पुरानी फाइल (Original)</p>
+                    <img id="origImg" src="" alt="Original">
+                    <div class="size-info" id="origSize" style="color:#b91c1c;"></div>
+                </div>
+                <div style="font-size: 28px; color: #059669;"><i class="fas fa-arrow-right"></i></div>
+                <div class="preview-box">
+                    <p style="font-weight: bold; color: #059669;">नया साइज (Ready for Form)</p>
+                    <img id="resImg" src="" alt="Resized">
+                    <div class="size-info" id="resSize" style="color:#15803d;"></div>
+                </div>
+            </div>
+
+            <a id="downloadBtn" class="btn-download" download="compressed_image.jpg">
+                <i class="fas fa-download"></i> तैयार फोटो डाउनलोड करें
+            </a>
+
+            <!-- Callout CTA -->
+            <div class="help-callout">
+                <div>
+                    <h4>फॉर्म भरने में कोई समस्या या गलती का डर है?</h4>
+                    <p>घर बैठे अपने दस्तावेज हमें भेजें, 100% सही और वेरीफाइड फॉर्म भरवाएं।</p>
+                </div>
+                <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20online%20form%20bharwana%20hai." target="_blank">
+                    <i class="fab fa-whatsapp"></i> वॉट्सऐप पर फॉर्म भरवाएं
+                </a>
+            </div>
+        </div>
+
+        <!-- Deadlines & Express Print Grid -->
+        <div class="bottom-grid">
+
+            <!-- Deadline Tracker -->
+            <div class="deadline-card">
+                <h3><i class="fas fa-clock" style="color: #dc2626;"></i> मुख्य फॉर्म अंतिम तिथि (Last Dates)</h3>
+                
+                <div class="deadline-item">
+                    <div>
+                        <div class="deadline-name">UP छात्रवृत्ति (Scholarship) आवेदन</div>
+                        <div class="deadline-sub">दशमोत्तर एवं प्री-मैट्रिक सभी कक्षाएं</div>
+                    </div>
+                    <span class="time-badge">🔴 जल्द आवेदन करें</span>
+                </div>
+
+                <div class="deadline-item">
+                    <div>
+                        <div class="deadline-name">लखनऊ विश्वविद्यालय (LU) परीक्षा फॉर्म</div>
+                        <div class="deadline-sub">UG / PG सेमेस्टर एवं बैक पेपर</div>
+                    </div>
+                    <span class="time-badge" style="background:#fef3c7; color:#b45309;">🟡 फॉर्म चालू हैं</span>
+                </div>
+
+                <div class="deadline-item">
+                    <div>
+                        <div class="deadline-name">UP पुलिस / SSC भर्ती आवेदन</div>
+                        <div class="deadline-sub">ऑनलाइन रजिस्ट्रेशन & फोटो वेरिफिकेशन</div>
+                    </div>
+                    <span class="time-badge" style="background:#dcfce7; color:#15803d;">🟢 एक्टिव</span>
+                </div>
+            </div>
+
+            <!-- Express Print on WhatsApp -->
+            <div class="express-print-card">
+                <div>
+                    <h3><i class="fas fa-print"></i> Express Print On-The-Go</h3>
+                    <p>कॉलेज क्लास या प्रैक्टिकल में देर हो रही है? दुकान आने से पहले ही वॉट्सऐप पर PDF/फोटो भेजें, काउंटर पर तुरंत प्रिंट तैयार मिलेगा!</p>
+                </div>
+                <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20urgent%20printout%20nikalwana%20hai,%20main%20document%20bhej%20raha%20hu." class="btn-express-wa" target="_blank">
+                    <i class="fab fa-whatsapp"></i> अभी PDF भेजें (Print Ready)
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Floating Sticky Action Buttons -->
+    <div class="floating-actions">
+        <a href="tel:+918303134606" class="float-btn float-call" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa" target="_blank" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- Master Professional Footer (Full 3-Column) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Chitransh Computers</h4>
+                <p>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में, बछरावां, रायबरेली।</p>
+                <p style="margin-top: 8px;"><strong>दुकान का समय:</strong> प्रतिदिन सुबह 8:00 AM से रात 8:00 PM तक</p>
+            </div>
+            <div class="footer-col">
+                <h4>सभी प्रमुख सेवाएं</h4>
+                <p><a href="index.html">होम पेज (Home)</a></p>
+                <p><a href="forms.html">कॉलेज & स्कॉलरशिप फॉर्म्स</a></p>
+                <p><a href="banking-legal.html">बैंकिंग, ई-स्टाम्प & एफिडेविट</a></p>
+                <p><a href="products.html">कंप्यूटर एक्सेसरीज & स्टेशनरी स्टोर</a></p>
+                <p><a href="tools.html">छात्र टूलकिट & कंप्रेसर</a></p>
+                <p><a href="contact.html">लोकेशन मैप & संपर्क</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>हेल्पलाइन & संपर्क</h4>
+                <p><i class="fas fa-phone-alt"></i> कॉल करें: <a href="tel:+918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p><i class="fab fa-whatsapp"></i> वॉट्सऐप: <a href="https://wa.me/918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p style="margin-top: 10px; color: #cbd5e1; font-size: 13.5px;">
+                    ⚡ घर बैठे फॉर्म भरवाने या कोई भी सामान आर्डर करने के लिए वॉट्सऐप पर संपर्क करें।
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright © Chitransh Computers. All rights reserved. | Dayanand Bachhrawan PG College Gate
+        </div>
+    </footer>
+
+    <!-- Interactive Script for Resizing -->
+    <script src="script.js"></script>
+    <script>
+        let currentImage = null;
+        let activePreset = 'photo';
+
+        function setPreset(preset) {
+            activePreset = preset;
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            if(preset === 'photo') document.getElementById('btnPhoto').classList.add('active');
+            if(preset === 'sign') document.getElementById('btnSign').classList.add('active');
+            if(preset === 'custom') document.getElementById('btnCustom').classList.add('active');
+
+            if (currentImage) processImage();
+        }
+
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('origSize').innerText = (file.size / 1024).toFixed(1) + " KB";
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    document.getElementById('origImg').src = event.target.result;
+                    processImage();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function processImage() {
+            if (!currentImage) return;
+
+            const canvas = document.createElement('canvas');
+            let targetWidth, targetHeight, targetKBMin, targetKBMax;
+
+            if (activePreset === 'photo') {
+                targetWidth = 350;
+                targetHeight = 450;
+                targetKBMin = 25;
+                targetKBMax = 48;
+            } else if (activePreset === 'sign') {
+                targetWidth = 320;
+                targetHeight = 130;
+                targetKBMin = 10;
+                targetKBMax = 19;
+            } else {
+                targetWidth = 600;
+                targetHeight = (currentImage.height / currentImage.width) * 600;
+                targetKBMin = 60;
+                targetKBMax = 95;
+            }
+
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = "#FFFFFF";
+            ctx.fillRect(0, 0, targetWidth, targetHeight);
+            ctx.drawImage(currentImage, 0, 0, targetWidth, targetHeight);
+
+            // Progressive compression to match KB range
+            let quality = 0.85;
+            let resultDataUrl = canvas.toDataURL('image/jpeg', quality);
+
+            // Adjust quality
+            for (let i = 0; i < 6; i++) {
+                let bytes = Math.round((resultDataUrl.length * 3) / 4);
+                let currentKB = bytes / 1024;
+                if (currentKB > targetKBMax && quality > 0.15) {
+                    quality -= 0.15;
+                    resultDataUrl = canvas.toDataURL('image/jpeg', quality);
+                } else {
+                    break;
+                }
+            }
+
+            const finalBytes = Math.round((resultDataUrl.length * 3) / 4);
+            const finalKB = (finalBytes / 1024).toFixed(1);
+
+            document.getElementById('resImg').src = resultDataUrl;
+            document.getElementById('resSize').innerText = finalKB + " KB (परफेक्ट)";
+            
+            const downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.href = resultDataUrl;
+            downloadBtn.style.display = 'block';
+            document.getElementById('previewArea').style.display = 'grid';
+        }
+    </script>
+</body>
+</html>
