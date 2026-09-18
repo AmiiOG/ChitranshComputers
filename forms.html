@@ -3,11 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Forms | Chitransh Computers</title>
+    <title>Online Forms & Admission Center | Chitransh Computers</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .forms-header {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .forms-header h1 { font-size: 30px; margin-bottom: 10px; }
+        .forms-header p { color: #cbd5e1; font-size: 16px; }
+
+        /* Search & Filter Controls */
+        .filter-controls {
+            max-width: 1200px;
+            margin: -25px auto 30px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box input:focus { border-color: #059669; }
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        /* Filter Pills */
+        .category-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pill-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .pill-btn.active, .pill-btn:hover {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        /* Form Cards Grid */
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        .form-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .form-top {
+            padding: 20px 20px 10px 20px;
+        }
+        .form-icon-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        .form-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .form-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f2c59;
+            margin-bottom: 8px;
+        }
+        .form-desc {
+            font-size: 13.5px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* Document Box */
+        .doc-box {
+            background: #f8fafc;
+            border-left: 3px solid #059669;
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 15px;
+            font-size: 12.5px;
+            color: #334155;
+        }
+        .doc-box strong {
+            color: #0f2c59;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* Action Buttons */
+        .form-bottom {
+            padding: 0 20px 20px 20px;
+        }
+        .action-row {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-wa-form {
+            flex: 1;
+            background: #25D366;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .btn-wa-form:hover { background: #1eb954; }
+        .btn-call-form {
+            width: 44px;
+            background: #0f2c59;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-call-form:hover { background: #1e40af; }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: #64748b;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
@@ -16,64 +216,327 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="forms.html" class="active">Online Forms</a></li>
                 <li><a href="banking-legal.html">Banking & Legal</a></li>
-                <li><a href="store.html">Store & Stationery</a></li>
+                <li><a href="products.html">Store & Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="container">
-        <div class="section-title">
-            <h2>कॉलेज एडमिशन, स्कॉलरशिप एवं सरकारी फॉर्म्स</h2>
-            <p>घर बैठे वॉट्सऐप पर डाक्यूमेंट्स भेजें और बिना किसी गलती के 100% सही फॉर्म भरवाएं।</p>
+    <!-- Header Section -->
+    <div class="forms-header">
+        <h1>कॉलेज, स्कॉलरशिप एवं सरकारी नौकरी फॉर्म्स</h1>
+        <p>बिना गलती 100% सही फॉर्म भरवाएं या सीधे वॉट्सऐप पर डॉक्यूमेंट्स भेजकर आवेदन कराएं</p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="filter-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="फॉर्म खोजें (जैसे: UP Scholarship, Police, LU Admission, SSC, PM Kisan, PET)...">
         </div>
-
-        <div class="grid-3">
-            <div class="card">
-                <h3>🎓 कॉलेज & यूनिवर्सिटी फॉर्म्स</h3>
-                <ul>
-                    <li>लखनऊ विश्वविद्यालय एडमिशन & परीक्षा फॉर्म</li>
-                    <li>दयानंद पीजी कॉलेज एडमिशन व एग्जामिनेशन फॉर्म</li>
-                    <li>स्कूल/कॉलेज एंट्रेंस एग्जाम एवं काउंसलिंग फॉर्म</li>
-                    <li>एडमिट कार्ड और मार्कशीट कलर प्रिंटिंग</li>
-                </ul>
-                <a href="https://wa.me/918303134606?text=College%20Form%20bhardana%20hai" class="card-btn">वॉट्सऐप पर फॉर्म भरवाएं</a>
-            </div>
-
-            <div class="card">
-                <h3>💰 छात्रवृत्ति (Scholarship) फॉर्म</h3>
-                <ul>
-                    <li>UP स्कॉलरशिप (Postmetric & Premetric)</li>
-                    <li>नेशनल स्कॉलरशिप पोर्टल (NSP) फॉर्म</li>
-                    <li>स्कॉलरशिप रिन्यूअल (Renewal) एवं फ्रेश आवेदन</li>
-                    <li>स्कॉलरशिप स्टेटस और करेक्शन (Correction) कार्य</li>
-                </ul>
-                <a href="https://wa.me/918303134606?text=Scholarship%20Form%20ke%20baare%20me%20puchna%20hai" class="card-btn">स्कॉलरशिप के लिए संपर्क करें</a>
-            </div>
-
-            <div class="card">
-                <h3>💼 सरकारी नौकरियां & योजनाएं</h3>
-                <ul>
-                    <li>UP Police, SSC, Railway, UPSSSC फॉर्म्स</li>
-                    <li>आर्मी अग्निवीर एवं पैरामिलिट्री भर्ती फॉर्म्स</li>
-                    <li>PM किसान सम्मान निधि ई-केवाईसी (e-KYC)</li>
-                    <li>आयुष्मान भारत कार्ड, राशन कार्ड, ई-श्रम कार्ड</li>
-                </ul>
-                <a href="https://wa.me/918303134606?text=Sarkari%20Naukri%20ka%20form%20bhardana%20hai" class="card-btn">सरकारी फॉर्म भरवाएं</a>
-            </div>
+        <div class="category-pills">
+            <button class="pill-btn active" onclick="filterCategory('all', this)">सभी फॉर्म्स (All)</button>
+            <button class="pill-btn" onclick="filterCategory('scholarship', this)">छात्रवृत्ति (Scholarship)</button>
+            <button class="pill-btn" onclick="filterCategory('college', this)">कॉलेज & यूनिवर्सिटी</button>
+            <button class="pill-btn" onclick="filterCategory('jobs', this)">सरकारी नौकरी (Jobs)</button>
+            <button class="pill-btn" onclick="filterCategory('yojna', this)">सरकारी योजनाएं (Schemes)</button>
         </div>
     </div>
 
-    <!-- Sticky Floating Action Buttons -->
+    <!-- Forms Grid -->
+    <div class="forms-grid" id="formsContainer">
+
+        <!-- Form 1: UP Scholarship -->
+        <div class="form-card" data-category="scholarship" data-name="up scholarship pre post matric renewal fresh chatravritti">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#dcfce7; color:#15803d;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span class="form-badge" style="color:#15803d; background:#f0fdf4;">फॉर्म चालू हैं</span>
+                </div>
+                <h3 class="form-title">UP स्कॉलरशिप (Fresh & Renewal)</h3>
+                <p class="form-desc">9वीं से 12वीं, BA, BSc, BCom, MA, ITI, B.Ed सभी कक्षाओं का स्कॉलरशिप आवेदन व फाइनल प्रिंट।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    आधार कार्ड, पिछली कक्षा की मार्कशीट, आय-जाति-निवास प्रमाण पत्र, बैंक पासबुक, फीस रसीद।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*UP%20Scholarship%20Form*%20bharwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> स्कॉलरशिप फॉर्म भरवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 2: Lucknow University & Dayanand College Forms -->
+        <div class="form-card" data-category="college" data-name="lucknow university lu admission exam form dayanand bachhrawan college">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#fee2e2; color:#b91c1c;">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <span class="form-badge" style="color:#b91c1c;">कॉलेज स्पेशल</span>
+                </div>
+                <h3 class="form-title">लखनऊ यूनिवर्सिटी & दयानंद कॉलेज फॉर्म</h3>
+                <p class="form-desc">LU एग्जामिनेशन फॉर्म, बैक पेपर फॉर्म, रजिस्ट्रेशन और दयानंद पीजी कॉलेज एडमिशन फॉर्म भरें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    रोल नंबर, कॉलेज अलॉटमेंट / रसीद, आधार कार्ड, फोटो व हस्ताक्षर।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*LU%20/%20Dayanand%20College%20Exam%20Form*%20bhardana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> कॉलेज फॉर्म भरवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 3: UP Police Constable & SI -->
+        <div class="form-card" data-category="jobs" data-name="up police constable si bharti sarkari naukri">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#e0e7ff; color:#3730a3;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span class="form-badge">पुलिस भर्ती</span>
+                </div>
+                <h3 class="form-title">UP पुलिस कांस्टेबल एवं SI भर्ती</h3>
+                <p class="form-desc">उत्तर प्रदेश पुलिस भर्ती बोर्ड (UPPRPB) के सभी ऑनलाइन आवेदन, फोटो-साइन री-अपलोड व प्रिंट।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    10वीं/12वीं मार्कशीट, आधार, मूल निवास, जाति प्रमाण पत्र, पासपोर्ट फोटो व हस्ताक्षर।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*UP%20Police%20ka%20Form*%20bharwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> पुलिस फॉर्म भरवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 4: SSC Forms (GD, CGL, CHSL, MTS) -->
+        <div class="form-card" data-category="jobs" data-name="ssc gd cgl chsl mts one time registration otr">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#fef3c7; color:#b45309;">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <span class="form-badge">SSC भर्ती</span>
+                </div>
+                <h3 class="form-title">SSC (GD, CGL, CHSL, MTS) & OTR</h3>
+                <p class="form-desc">SSC नए पोर्टल पर OTR रजिस्ट्रेशन एवं जीडी कांस्टेबल, सीजीएल व सीएचएसएल के ऑनलाइन फॉर्म भरें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    10वीं मार्कशीट, आधार कार्ड, लाइव फोटो, ईमेल आईडी एवं मोबाइल नंबर।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*SSC%20ka%20Form%20/%20OTR*%20karwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> SSC फॉर्म भरवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 5: UPSSSC PET, VDO & Lekhpal -->
+        <div class="form-card" data-category="jobs" data-name="upsssc pet lekhpal vdo junior assistant">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#f1f5f9; color:#0f2c59;">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <span class="form-badge">UPSSSC</span>
+                </div>
+                <h3 class="form-title">UPSSSC (PET, लेखपाल, VDO)</h3>
+                <p class="form-desc">UPSSSC प्रारंभिक अर्हता परीक्षा (PET), ग्राम विकास अधिकारी और जूनियर असिस्टेंट भर्ती फॉर्म।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    PET स्कोर कार्ड/रजिस्ट्रेशन, 10वीं/12वीं व स्नातक मार्कशीट, जाति एवं निवास।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*UPSSSC%20ka%20Form*%20bharwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> UPSSSC फॉर्म भरें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 6: Railway (RRB NTPC, Group D, ALP) -->
+        <div class="form-card" data-category="jobs" data-name="railway rrb ntpc group d alp technician">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#e0f2fe; color:#0284c7;">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <span class="form-badge">रेलवे भर्ती</span>
+                </div>
+                <h3 class="form-title">रेलवे (RRB NTPC, ALP & Group D)</h3>
+                <p class="form-desc">भारतीय रेलवे के विभिन्न जोनों में असिस्टेंट लोको पायलट, टेक्नीशियन एवं NTPC पदों के फॉर्म।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    10वीं/ITI/डिप्लोमा मार्कशीट, आधार, जाति प्रमाण पत्र, बैंक पासबुक (रिफंड हेतु)।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Railway%20ka%20Form*%20bharwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> रेलवे फॉर्म भरें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 7: PM Kisan Samman Nidhi -->
+        <div class="form-card" data-category="yojna" data-name="pm kisan samman nidhi e kyc registration kisan">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#dcfce7; color:#16a34a;">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <span class="form-badge" style="color:#16a34a;">किसान योजना</span>
+                </div>
+                <h3 class="form-title">PM किसान सम्मान निधि (e-KYC)</h3>
+                <p class="form-desc">नया किसान पंजीकरण, फिंगरप्रिंट द्वारा e-KYC, लैंड सीडिंग समस्या व बैंक खाता सुधार कार्य।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    आधार कार्ड, खतौनी (जमीन की नकल), बैंक पासबुक एवं आधार लिंक मोबाइल।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*PM%20Kisan%20e-KYC%20/%20Registration*%20karwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> PM किसान सेवा
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 8: Ayushman Bharat Golden Card -->
+        <div class="form-card" data-category="yojna" data-name="ayushman bharat golden card 5 lakh free ilaj health card">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#fee2e2; color:#dc2626;">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <span class="form-badge">स्वास्थ्य कार्ड</span>
+                </div>
+                <h3 class="form-title">आयुष्मान भारत कार्ड (₹5 लाख फ्री इलाज)</h3>
+                <p class="form-desc">राशन कार्ड लिस्ट में नाम चेक करें, आयुष्मान कार्ड बनाएं और PVC प्लास्टिक कार्ड प्रिंट कराएं।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    पात्र गृहस्थी / अंत्योदय राशन कार्ड, आधार कार्ड एवं मोबाइल नंबर।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Ayushman%20Card*%20check%20karwana%20aur%20banwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> आयुष्मान कार्ड बनवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form 9: Admit Card & Result Printing -->
+        <div class="form-card" data-category="college" data-name="admit card result marksheet print color lamination">
+            <div class="form-top">
+                <div class="form-icon-row">
+                    <div class="icon-box" style="background:#fae8ff; color:#a21caf;">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <span class="form-badge">फास्ट प्रिंटिंग</span>
+                </div>
+                <h3 class="form-title">एडमिट कार्ड & रिजल्ट प्रिंटिंग</h3>
+                <p class="form-desc">किसी भी परीक्षा का प्रवेश पत्र (Admit Card), रिजल्ट व स्कोर कार्ड HD कलर प्रिंट में प्राप्त करें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी विवरण:</strong>
+                    रजिस्ट्रेशन नंबर / रोल नंबर एवं जन्मतिथि (DOB)।
+                </div>
+            </div>
+            <div class="form-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Admit%20Card%20/%20Result*%20nikalwana%20hai." class="btn-wa-form">
+                        <i class="fab fa-whatsapp"></i> एडमिट कार्ड निकालें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-form"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- No search results fallback -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search-minus" style="font-size: 40px; margin-bottom: 10px;"></i>
+            <p>माफ़ करें, यह फॉर्म लिस्ट में नहीं मिला। आप सीधे 8303134606 पर कॉल या वॉट्सऐप करके पूछ सकते हैं!</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Sticky Buttons -->
     <div class="floating-actions">
         <a href="tel:+918303134606" class="float-btn float-call"><i class="fas fa-phone"></i></a>
         <a href="https://wa.me/918303134606" class="float-btn float-wa"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <div class="footer-bottom">Chitransh Computers • कॉल/वॉट्सऐप: 8303134606</div>
+        <div class="footer-bottom">Chitransh Computers • ऑनलाइन फॉर्म हब बछरावां • हेल्पलाइन: 8303134606</div>
     </footer>
+
+    <!-- Interactive Filtering & Live Search Script -->
     <script src="script.js"></script>
+    <script>
+        let currentCategory = 'all';
+
+        function filterCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', applyFilters);
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.form-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                const name = card.getAttribute('data-name');
+
+                const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+                const matchesSearch = name.includes(query);
+
+                if (matchesCat && matchesSearch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>
