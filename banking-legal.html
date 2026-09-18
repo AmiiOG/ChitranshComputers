@@ -6,8 +6,208 @@
     <title>Banking & Legal Services | Chitransh Computers</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .service-header {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .service-header h1 { font-size: 30px; margin-bottom: 10px; }
+        .service-header p { color: #cbd5e1; font-size: 16px; }
+
+        /* Search & Filter Controls */
+        .filter-controls {
+            max-width: 1200px;
+            margin: -25px auto 30px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-box input:focus { border-color: #059669; }
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        /* Filter Pills */
+        .category-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pill-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #334155;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+        .pill-btn.active, .pill-btn:hover {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        /* Service Cards Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+        .service-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .service-top {
+            padding: 20px 20px 10px 20px;
+        }
+        .service-icon-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+        .service-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            background: #f1f5f9;
+            color: #475569;
+        }
+        .service-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0f2c59;
+            margin-bottom: 8px;
+        }
+        .service-desc {
+            font-size: 13.5px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        /* Document Box */
+        .doc-box {
+            background: #f8fafc;
+            border-left: 3px solid #059669;
+            padding: 8px 12px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 15px;
+            font-size: 12.5px;
+            color: #334155;
+        }
+        .doc-box strong {
+            color: #0f2c59;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* Action Buttons */
+        .service-bottom {
+            padding: 0 20px 20px 20px;
+        }
+        .action-row {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-wa-service {
+            flex: 1;
+            background: #25D366;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .btn-wa-service:hover { background: #1eb954; }
+        .btn-call-service {
+            width: 44px;
+            background: #0f2c59;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-call-service:hover { background: #1e40af; }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: #64748b;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
@@ -16,63 +216,327 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="forms.html">Online Forms</a></li>
                 <li><a href="banking-legal.html" class="active">Banking & Legal</a></li>
-                <li><a href="store.html">Store & Stationery</a></li>
+                <li><a href="products.html">Store & Products</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="container">
-        <div class="section-title">
-            <h2>बैंकिंग, ई-स्टाम्प एवं लीगल सेवाएं</h2>
-            <p>पैसा निकासी, खाता खोलने और कानूनी दस्तावेजों के लिए त्वरित सेवाएं</p>
+    <!-- Header Section -->
+    <div class="service-header">
+        <h1>बैंकिंग, ई-स्टाम्प एवं लीगल सेवाएं</h1>
+        <p>बैंक खाता, आधार निकासी, ई-स्टाम्प, शपथ पत्र व बिजली बिल भुगतान केंद्र</p>
+    </div>
+
+    <!-- Search & Filter Controls -->
+    <div class="filter-controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="सेवा खोजें (जैसे: BOI, E-Stamp, Affidavit, Aadhaar, Challan, Bijli Bill)...">
         </div>
-
-        <div class="grid-3">
-            <div class="card">
-                <h3>🏦 बैंकिंग & AePS सेवाएं</h3>
-                <ul>
-                    <li>बैंक ऑफ इंडिया (BOI) खाता खोलना</li>
-                    <li>किसी भी बैंक से आधार द्वारा रुपये निकालना</li>
-                    <li>बैलेंस इन्क्वायरी एवं मिनी स्टेटमेंट</li>
-                    <li>वाहन एवं जीवन बीमा (Insurance Policies)</li>
-                </ul>
-                <a href="tel:+918303134606" class="card-btn">कॉल करें: 8303134606</a>
-            </div>
-
-            <div class="card">
-                <h3>📜 ई-स्टाम्प & शपथ पत्र (Affidavit)</h3>
-                <ul>
-                    <li>सरकारी ई-स्टाम्प पेपर (E-Stamp) तत्काल उपलब्ध</li>
-                    <li>कॉलेज एफिडेविट / शपथ पत्र टाइपिंग & ड्राफ्टिंग</li>
-                    <li>रेंट एग्रीमेंट एवं एग्रीमेंट पेपर कार्य</li>
-                    <li>खतौनी नकल (भूलेख सत्यापन) तत्काल प्रिंट</li>
-                </ul>
-                <a href="https://wa.me/918303134606?text=Mujhe%20E-Stamp%20ya%20Affidavit%20banwana%20hai" class="card-btn">ई-स्टाम्प के लिए वॉट्सऐप करें</a>
-            </div>
-
-            <div class="card">
-                <h3>💳 बिल पेमेंट & पहचान पत्र सेवाएं</h3>
-                <ul>
-                    <li>बिजली बिल (Electricity Bill) जमा करना</li>
-                    <li>ऑनलाइन ट्रैफिक ई-चालान भुगतान</li>
-                    <li>ओरिजिनल PVC प्लास्टिक आधार कार्ड प्रिंटिंग</li>
-                    <li>पैन कार्ड (नया एवं सुधार कार्य)</li>
-                </ul>
-                <a href="https://wa.me/918303134606?text=PVC%20Aadhaar%20ya%20Bill%20payment%20karna%20hai" class="card-btn">बिल / PVC के लिए संपर्क करें</a>
-            </div>
+        <div class="category-pills">
+            <button class="pill-btn active" onclick="filterCategory('all', this)">सभी सेवाएं (All)</button>
+            <button class="pill-btn" onclick="filterCategory('banking', this)">बैंकिंग & AePS निकासी</button>
+            <button class="pill-btn" onclick="filterCategory('legal', this)">ई-स्टाम्प & शपथ पत्र</button>
+            <button class="pill-btn" onclick="filterCategory('bills', this)">बिल & चालान भुगतान</button>
+            <button class="pill-btn" onclick="filterCategory('cards', this)">पैन कार्ड & पहचान पत्र</button>
         </div>
     </div>
 
+    <!-- Services Grid -->
+    <div class="services-grid" id="servicesContainer">
+
+        <!-- Service 1: E-Stamp -->
+        <div class="service-card" data-category="legal" data-name="e stamp paper estamp shapat patra legal">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#fef3c7; color:#d97706;">
+                        <i class="fas fa-stamp"></i>
+                    </div>
+                    <span class="service-badge" style="color:#d97706;">तत्काल उपलब्ध</span>
+                </div>
+                <h3 class="service-title">सरकारी ई-स्टाम्प (E-Stamp)</h3>
+                <p class="service-desc">₹10, ₹20, ₹50, ₹100 एवं अधिक मूल्य के आधिकारिक ई-स्टाम्प पेपर तुरंत प्राप्त करें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी जानकारी:</strong>
+                    पहला पक्ष (First Party) व दूसरा पक्ष का नाम, मोबाइल नंबर।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20*E-Stamp%20Paper*%20banwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> ई-स्टाम्प हेतु संपर्क
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2: College Affidavit -->
+        <div class="service-card" data-category="legal" data-name="affidavit shapath patra gap certificate college anti ragging">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#fee2e2; color:#dc2626;">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <span class="service-badge">कॉलेज स्पेशल</span>
+                </div>
+                <h3 class="service-title">शपथ पत्र / Affidavit ड्राफ्टिंग</h3>
+                <p class="service-desc">दयानंद कॉलेज एडमिशन, गैप ईयर (Gap Year), एंटी-रैगिंग एवं स्कॉलरशिप एफिडेविट तैयार करवाएं।</p>
+                <div class="doc-box">
+                    <strong>जरूरी जानकारी:</strong>
+                    छात्र का नाम, पिता का नाम, कारण (गैप/एडमिशन विवरण)।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*College%20Affidavit%20/%20Shapath%20Patra*%20banwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> एफिडेविट बनवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3: Bank of India Account -->
+        <div class="service-card" data-category="banking" data-name="boi bank of india account opening khata balance">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#e0e7ff; color:#4338ca;">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <span class="service-badge">BOI बैंकिंग</span>
+                </div>
+                <h3 class="service-title">Bank of India (BOI) खाता</h3>
+                <p class="service-desc">जीरो बैलेंस एवं सामान्य बचत खाता तुरंत खोलें। पासबुक एवं चेकबुक सुविधा उपलब्ध।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    आधार कार्ड, पैन कार्ड, 2 फोटो और आधार लिंक मोबाइल।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Bank%20of%20India%20Khata*%20khulwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> खाता खुलवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 4: AePS Aadhaar Cash Withdrawal -->
+        <div class="service-card" data-category="banking" data-name="aeps aadhaar paisa nikalna cash withdrawal atm balance">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#dcfce7; color:#15803d;">
+                        <i class="fas fa-fingerprint"></i>
+                    </div>
+                    <span class="service-badge" style="color:#15803d;">फास्ट निकासी</span>
+                </div>
+                <h3 class="service-title">AePS आधार कार्ड से रुपये निकासी</h3>
+                <p class="service-desc">किसी भी बैंक का पैसा केवल आधार कार्ड और फिंगरप्रिंट लगाकर निकालें व बैलेंस चेक करें।</p>
+                <div class="doc-box">
+                    <strong>सुविधाएं:</strong>
+                    कैश विथड्रॉल, मिनी स्टेटमेंट, बैलेंस इन्क्वायरी।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20Aadhaar%20se%20paise%20nikalne%20ke%20liye%20puchna%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> संपर्क करें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 5: Traffic E-Challan -->
+        <div class="service-card" data-category="bills" data-name="traffic e challan payment vehicle gadi bike challan">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#fae8ff; color:#a21caf;">
+                        <i class="fas fa-traffic-light"></i>
+                    </div>
+                    <span class="service-badge">ई-चालान</span>
+                </div>
+                <h3 class="service-title">ट्रैफिक ई-चालान भुगतान</h3>
+                <p class="service-desc">बाइक, कार या किसी भी वाहन का कटा हुआ पुलिस चालान चेक करें और ऑनलाइन रसीद के साथ जमा करें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी विवरण:</strong>
+                    गाड़ी नंबर (RC Number) या चालान नंबर।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20apna%20*Traffic%20Challan*%20jama%20karwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> चालान चेक & भरें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 6: Electricity Bill -->
+        <div class="service-card" data-category="bills" data-name="electricity bill bijli bill payment mppkvvcl uppcl">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#fef9c3; color:#ca8a04;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span class="service-badge">बिल भुगतान</span>
+                </div>
+                <h3 class="service-title">बिजली बिल (Electricity Bill) जमा</h3>
+                <p class="service-desc">UPPCL ग्रामीण एवं शहरी बिजली का बिल तुरंत जमा करें और पक्की सरकारी रसीद प्राप्त करें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी विवरण:</strong>
+                    10 या 12 अंकों का उपभोक्ता खाता संख्या (Account No).
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Bijli%20Bill*%20jama%20karwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> बिल जमा करें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 7: PAN Card -->
+        <div class="service-card" data-category="cards" data-name="pan card new correction uti nsdl income tax">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#e0f2fe; color:#0284c7;">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <span class="service-badge">NSDL / UTI</span>
+                </div>
+                <h3 class="service-title">नया पैन कार्ड & सुधार (Correction)</h3>
+                <p class="service-desc">नया पैन कार्ड बनवाएं मात्र 3 दिनों में ई-पैन एवं घर पर डाक द्वारा प्लास्टिक कार्ड प्राप्त करें।</p>
+                <div class="doc-box">
+                    <strong>जरूरी दस्तावेज:</strong>
+                    आधार कार्ड और आधार से लिंक मोबाइल नंबर।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*PAN%20Card*%20apply%20karna%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> पैन कार्ड बनवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 8: PVC Aadhaar Card -->
+        <div class="service-card" data-category="cards" data-name="pvc aadhaar card plastic smart card print">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#dcfce7; color:#16a34a;">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <span class="service-badge">प्लास्टिक कार्ड</span>
+                </div>
+                <h3 class="service-title">PVC स्मार्ट आधार कार्ड प्रिंट</h3>
+                <p class="service-desc">ओरिजिनल वाटरप्रूफ, मजबूत प्लास्टिक PVC आधार कार्ड, आयुष्मान कार्ड या ई-श्रम कार्ड प्रिंट करवाएं।</p>
+                <div class="doc-box">
+                    <strong>जरूरी विवरण:</strong>
+                    आधार नंबर या आधार की PDF फाइल।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*PVC%20Aadhaar%20Card*%20print%20karwana%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> PVC कार्ड ऑर्डर करें
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 9: Bhulekh Khatauni -->
+        <div class="service-card" data-category="legal" data-name="bhulekh khatauni nakal zameen khet kisan jameen">
+            <div class="service-top">
+                <div class="service-icon-row">
+                    <div class="icon-box" style="background:#fef3c7; color:#b45309;">
+                        <i class="fas fa-map"></i>
+                    </div>
+                    <span class="service-badge">भूलेख</span>
+                </div>
+                <h3 class="service-title">खतौनी नकल (भूलेख सत्यापन)</h3>
+                <p class="service-desc">खेत व जमीन की कंप्यूटरीकृत खतौनी नकल, गाटा संख्या व भू-नक्शा तुरंत प्रिंट करवाएं।</p>
+                <div class="doc-box">
+                    <strong>जरूरी विवरण:</strong>
+                    ग्राम का नाम, खाता संख्या या काश्तकार का नाम।
+                </div>
+            </div>
+            <div class="service-bottom">
+                <div class="action-row">
+                    <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20*Khatauni%20Nakal*%20print%20karwani%20hai." class="btn-wa-service">
+                        <i class="fab fa-whatsapp"></i> खतौनी निकलवाएं
+                    </a>
+                    <a href="tel:+918303134606" class="btn-call-service"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- No search results fallback -->
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search-minus" style="font-size: 40px; margin-bottom: 10px;"></i>
+            <p>माफ़ करें, यह सेवा लिस्ट में नहीं मिली। आप सीधे 8303134606 पर कॉल या वॉट्सऐप करके पूछ सकते हैं!</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Sticky Buttons -->
     <div class="floating-actions">
         <a href="tel:+918303134606" class="float-btn float-call"><i class="fas fa-phone"></i></a>
         <a href="https://wa.me/918303134606" class="float-btn float-wa"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <!-- Footer -->
     <footer>
-        <div class="footer-bottom">Chitransh Computers • संपर्क: +91 8303134606</div>
+        <div class="footer-bottom">Chitransh Computers Banking & Legal Hub • बछरावां • हेल्पलाइन: 8303134606</div>
     </footer>
+
+    <!-- Interactive Filtering & Live Search Script -->
     <script src="script.js"></script>
+    <script>
+        let currentCategory = 'all';
+
+        function filterCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            applyFilters();
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', applyFilters);
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.service-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cat = card.getAttribute('data-category');
+                const name = card.getAttribute('data-name');
+
+                const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+                const matchesSearch = name.includes(query);
+
+                if (matchesCat && matchesSearch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('noResults').style.display = (visibleCount === 0) ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>
