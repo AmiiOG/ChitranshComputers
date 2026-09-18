@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Resume & CV Maker | Chitransh Computers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .resume-hero {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .resume-hero h1 { font-size: 32px; margin-bottom: 8px; }
+        .resume-hero p { color: #cbd5e1; font-size: 16px; max-width: 750px; margin: auto; }
+
+        .maker-layout {
+            max-width: 1250px;
+            margin: 35px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 990px) {
+            .maker-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Form Card */
+        .form-panel {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            height: fit-content;
+        }
+        .form-panel h2 {
+            font-size: 20px;
+            color: #0f2c59;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: #334155;
+            margin-bottom: 5px;
+        }
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            border-color: #059669;
+        }
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Live A4 Resume Preview */
+        .preview-panel {
+            background: #ffffff;
+            padding: 35px 40px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            min-height: 700px;
+            color: #1e293b;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .resume-header {
+            border-bottom: 2px solid #0f2c59;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .res-name {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f2c59;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .res-contact {
+            font-size: 12.5px;
+            color: #475569;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+        .res-sec {
+            margin-bottom: 16px;
+        }
+        .res-sec-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f2c59;
+            text-transform: uppercase;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .res-content {
+            font-size: 13px;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .res-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+            font-size: 12.5px;
+        }
+        .res-table th, .res-table td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        .res-table th {
+            background: #f8fafc;
+            color: #0f2c59;
+        }
+
+        /* Action Buttons Row */
+        .actions-row {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        .btn-print {
+            flex: 1;
+            background: #0f2c59;
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-print:hover { background: #1e40af; }
+        .btn-send-shop {
+            flex: 1;
+            background: #25D366;
+            color: #ffffff;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-send-shop:hover { background: #1eb954; }
+
+        /* Print Mode: Hide all website styling and print only the clean resume */
+        @media print {
+            body * { visibility: hidden; }
+            .preview-panel, .preview-panel * { visibility: visible; }
+            .preview-panel {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+            .navbar, footer, .floating-actions, .resume-hero, .form-panel, .actions-row {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="forms.html">Online Forms</a></li>
+                <li><a href="banking-legal.html">Banking & Legal</a></li>
+                <li><a href="products.html">Store & Products</a></li>
+                <li><a href="tools.html">Student Tools</a></li>
+                <li><a href="checklist.html">Checklist</a></li>
+                <li><a href="resume.html" class="active">Resume Maker</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <div class="resume-hero">
+        <h1>फ्री ऑनलाइन रिज्यूमे (Resume) & CV मेकर</h1>
+        <p>मात्र 2 मिनट में जॉब और इंटरव्यू के लिए सुंदर रिज्यूमे बनाएं, डाउनलोड करें या सीधे दुकान पर प्रिंट करवाएं</p>
+    </div>
+
+    <!-- Maker Layout -->
+    <div class="maker-layout">
+
+        <!-- Left Form Panel -->
+        <div class="form-panel">
+            <h2><i class="fas fa-edit" style="color: #059669;"></i> अपनी जानकारी भरें (Fill Details)</h2>
+
+            <div class="input-group">
+                <label>पूरा नाम (Full Name):</label>
+                <input type="text" id="inName" value="अमन वर्मा (Aman Verma)" oninput="updateResume()">
+            </div>
+
+            <div class="two-col">
+                <div class="input-group">
+                    <label>मोबाइल नंबर:</label>
+                    <input type="text" id="inPhone" value="+91 9876543210" oninput="updateResume()">
+                </div>
+                <div class="input-group">
+                    <label>ईमेल आईडी:</label>
+                    <input type="email" id="inEmail" value="amanverma@gmail.com" oninput="updateResume()">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>पूरा पता (Full Address):</label>
+                <input type="text" id="inAddress" value="बछरावां, रायबरेली, उत्तर प्रदेश - 229301" oninput="updateResume()">
+            </div>
+
+            <div class="input-group">
+                <label>करियर उद्देश्य (Career Objective):</label>
+                <textarea id="inObjective" rows="2" oninput="updateResume()">To secure a challenging position in a reputable organization to expand my learning, knowledge, and skills while contributing positively to company growth.</textarea>
+            </div>
+
+            <div class="input-group">
+                <label>शैक्षणिक योग्यता (Education Details):</label>
+                <input type="text" id="inEdu1" placeholder="Graduation (B.A. / B.Sc. / B.Com)" value="B.Sc. - Dayanand Bachhrawan PG College (2024)" oninput="updateResume()" style="margin-bottom:6px;">
+                <input type="text" id="inEdu2" placeholder="Intermediate (12th)" value="12th (UP Board) - 72% Marks (2021)" oninput="updateResume()" style="margin-bottom:6px;">
+                <input type="text" id="inEdu3" placeholder="High School (10th)" value="10th (UP Board) - 78% Marks (2019)" oninput="updateResume()">
+            </div>
+
+            <div class="input-group">
+                <label>कंप्यूटर व तकनीकी स्किल्स (Skills):</label>
+                <input type="text" id="inSkills" value="Basic Computer, MS Office (Word, Excel), Internet & Fast Hindi/English Typing, CCC Certified" oninput="updateResume()">
+            </div>
+
+            <div class="two-col">
+                <div class="input-group">
+                    <label>पिता का नाम (Father's Name):</label>
+                    <input type="text" id="inFather" value="श्री राजेश वर्मा" oninput="updateResume()">
+                </div>
+                <div class="input-group">
+                    <label>जन्म तिथि (DOB):</label>
+                    <input type="text" id="inDob" value="15/07/2002" oninput="updateResume()">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>भाषाएं (Languages Known):</label>
+                <input type="text" id="inLang" value="Hindi & English" oninput="updateResume()">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions-row">
+                <button onclick="window.print()" class="btn-print">
+                    <i class="fas fa-print"></i> डाउनलोड / प्रिंट (PDF)
+                </button>
+                <a href="#" id="sendShopBtn" class="btn-send-shop" target="_blank" onclick="prepareWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> दुकान पर भेजें प्रिंट हेतु
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Live Preview Panel (A4 Format) -->
+        <div class="preview-panel" id="resumePreview">
+            <div class="resume-header">
+                <div class="res-name" id="outName">अमन वर्मा (Aman Verma)</div>
+                <div class="res-contact" id="outContact">
+                    📞 +91 9876543210 &nbsp;|&nbsp; ✉️ amanverma@gmail.com<br>
+                    📍 बछरावां, रायबरेली, उत्तर प्रदेश - 229301
+                </div>
+            </div>
+
+            <div class="res-sec">
+                <div class="res-sec-title">Career Objective</div>
+                <div class="res-content" id="outObjective">
+                    To secure a challenging position in a reputable organization to expand my learning, knowledge, and skills while contributing positively to company growth.
+                </div>
+            </div>
+
+            <div class="res-sec">
+                <div class="res-sec-title">Educational Qualification</div>
+                <div class="res-content">
+                    <ul style="padding-left: 18px; margin: 0;" id="outEduList">
+                        <li>B.Sc. - Dayanand Bachhrawan PG College (2024)</li>
+                        <li>12th (UP Board) - 72% Marks (2021)</li>
+                        <li>10th (UP Board) - 78% Marks (2019)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="res-sec">
+                <div class="res-sec-title">Technical & Computer Skills</div>
+                <div class="res-content" id="outSkills">
+                    Basic Computer, MS Office (Word, Excel), Internet & Fast Hindi/English Typing, CCC Certified
+                </div>
+            </div>
+
+            <div class="res-sec">
+                <div class="res-sec-title">Personal Details</div>
+                <div class="res-content" id="outPersonal">
+                    • <strong>Father's Name:</strong> श्री राजेश वर्मा<br>
+                    • <strong>Date of Birth:</strong> 15/07/2002<br>
+                    • <strong>Gender:</strong> Male<br>
+                    • <strong>Languages:</strong> Hindi & English
+                </div>
+            </div>
+
+            <div class="res-sec" style="margin-top: 30px;">
+                <div class="res-sec-title">Declaration</div>
+                <div class="res-content" style="font-size: 12px; color: #64748b;">
+                    I hereby declare that all the information mentioned above is true and correct to the best of my knowledge and belief.
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 25px; font-weight: 700; font-size: 13px;">
+                    <div>Date: ................<br>Place: Bachhrawan</div>
+                    <div>(Signature)</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Floating Sticky Action Buttons -->
+    <div class="floating-actions">
+        <a href="tel:+918303134606" class="float-btn float-call" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa" target="_blank" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+    </div>
+
+    <!-- Master Professional Footer (Full 3-Column) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Chitransh Computers</h4>
+                <p>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में, बछरावां, रायबरेली।</p>
+                <p style="margin-top: 8px;"><strong>दुकान का समय:</strong> प्रतिदिन सुबह 8:00 AM से रात 8:00 PM तक</p>
+            </div>
+            <div class="footer-col">
+                <h4>सभी प्रमुख सेवाएं</h4>
+                <p><a href="index.html">होम पेज (Home)</a></p>
+                <p><a href="forms.html">कॉलेज & स्कॉलरशिप फॉर्म्स</a></p>
+                <p><a href="banking-legal.html">बैंकिंग, ई-स्टाम्प & एफिडेविट</a></p>
+                <p><a href="products.html">कंप्यूटर एक्सेसरीज & स्टेशनरी स्टोर</a></p>
+                <p><a href="tools.html">छात्र टूलकिट & कंप्रेसर</a></p>
+                <p><a href="checklist.html">डॉक्यूमेंट चेकलिस्ट गाइड</a></p>
+                <p><a href="resume.html">फ्री रिज्यूमे (Resume) मेकर</a></p>
+                <p><a href="contact.html">लोकेशन मैप & संपर्क</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>हेल्पलाइन & संपर्क</h4>
+                <p><i class="fas fa-phone-alt"></i> कॉल करें: <a href="tel:+918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p><i class="fab fa-whatsapp"></i> वॉट्सऐप: <a href="https://wa.me/918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p style="margin-top: 10px; color: #cbd5e1; font-size: 13.5px;">
+                    ⚡ घर बैठे फॉर्म भरवाने या कोई भी सामान आर्डर करने के लिए वॉट्सऐप पर संपर्क करें।
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright © Chitransh Computers. All rights reserved. | Dayanand Bachhrawan PG College Gate
+        </div>
+    </footer>
+
+    <!-- Interactive Live Update Script -->
+    <script src="script.js"></script>
+    <script>
+        function updateResume() {
+            const name = document.getElementById('inName').value || 'Your Name';
+            const phone = document.getElementById('inPhone').value || '';
+            const email = document.getElementById('inEmail').value || '';
+            const address = document.getElementById('inAddress').value || '';
+            const objective = document.getElementById('inObjective').value || '';
+            const skills = document.getElementById('inSkills').value || '';
+            const father = document.getElementById('inFather').value || '';
+            const dob = document.getElementById('inDob').value || '';
+            const lang = document.getElementById('inLang').value || '';
+
+            const edu1 = document.getElementById('inEdu1').value;
+            const edu2 = document.getElementById('inEdu2').value;
+            const edu3 = document.getElementById('inEdu3').value;
+
+            document.getElementById('outName').innerText = name;
+            document.getElementById('outContact').innerHTML = `📞 ${phone} &nbsp;|&nbsp; ✉️ ${email}<br>📍 ${address}`;
+            document.getElementById('outObjective').innerText = objective;
+            document.getElementById('outSkills').innerText = skills;
+
+            let eduHtml = '';
+            if (edu1) eduHtml += `<li>${edu1}</li>`;
+            if (edu2) eduHtml += `<li>${edu2}</li>`;
+            if (edu3) eduHtml += `<li>${edu3}</li>`;
+            document.getElementById('outEduList').innerHTML = eduHtml;
+
+            document.getElementById('outPersonal').innerHTML = `
+                • <strong>Father's Name:</strong> ${father}<br>
+                • <strong>Date of Birth:</strong> ${dob}<br>
+                • <strong>Languages:</strong> ${lang}
+            `;
+        }
+
+        function prepareWhatsApp() {
+            const name = document.getElementById('inName').value;
+            const phone = document.getElementById('inPhone').value;
+            const text = `Namaste Chitransh Computers!%0AMaine website se apna Resume taiyar kiya hai.%0A*Naam:* ${encodeURIComponent(name)}%0A*Mobile:* ${encodeURIComponent(phone)}%0AMujhe iska Printout nikalwana hai, main dukan aa raha hu.`;
+            document.getElementById('sendShopBtn').href = `https://wa.me/918303134606?text=${text}`;
+        }
+    </script>
+</body>
+</html>
