@@ -3,11 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact & Location | Chitransh Computers</title>
+    <title>Contact Us & Location | Chitransh Computers</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Header Banner */
+        .contact-hero {
+            background: linear-gradient(rgba(15, 44, 89, 0.92), rgba(15, 44, 89, 0.95));
+            color: #ffffff;
+            padding: 45px 20px;
+            text-align: center;
+        }
+        .contact-hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .contact-hero p { color: #cbd5e1; font-size: 16px; max-width: 700px; margin: auto; }
+
+        /* Quick Info Cards */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: -25px auto 40px auto;
+            padding: 0 20px;
+        }
+        .info-card {
+            background: #ffffff;
+            padding: 25px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .info-card:hover { transform: translateY(-5px); }
+        .info-card i {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+        .info-card h3 {
+            font-size: 18px;
+            color: #0f2c59;
+            margin-bottom: 8px;
+        }
+        .info-card p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .info-card a.action-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* 2-Column Section: WhatsApp Form + Map */
+        .interactive-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        @media (max-width: 850px) {
+            .interactive-section { grid-template-columns: 1fr; }
+        }
+
+        /* WhatsApp Direct Form Box */
+        .wa-box {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .wa-box h2 {
+            font-size: 22px;
+            color: #0f2c59;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .wa-box p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #059669;
+        }
+        .btn-send-wa {
+            width: 100%;
+            background: #25D366;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-send-wa:hover { background: #1eb954; }
+
+        /* Map Box */
+        .map-box {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .map-box-header {
+            padding: 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .map-box-header h3 { color: #0f2c59; font-size: 18px; }
+        .map-box-header p { color: #64748b; font-size: 13.5px; margin-top: 4px; }
+        .map-iframe {
+            flex-grow: 1;
+            min-height: 320px;
+            border: none;
+            width: 100%;
+        }
+
+        /* Reviews / Testimonials Section */
+        .reviews-section {
+            max-width: 1200px;
+            margin: 60px auto 40px auto;
+            padding: 0 20px;
+        }
+        .reviews-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .reviews-title h2 { font-size: 26px; color: #0f2c59; }
+        .reviews-title p { color: #64748b; font-size: 15px; }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .review-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .stars {
+            color: #f59e0b;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .review-text {
+            color: #334155;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 12px;
+        }
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #0f2c59;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .reviewer-name { font-weight: 700; color: #0f2c59; font-size: 14px; }
+        .reviewer-role { font-size: 12px; color: #64748b; }
+    </style>
 </head>
 <body>
+
+    <!-- Header / Navbar -->
     <header class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand-name">Chitransh <span>Computers</span></a>
@@ -16,68 +233,216 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="forms.html">Online Forms</a></li>
                 <li><a href="banking-legal.html">Banking & Legal</a></li>
-                <li><a href="store.html">Store & Stationery</a></li>
+                <li><a href="products.html">Store & Products</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
                 <li><a href="tel:+918303134606" class="nav-btn"><i class="fas fa-phone"></i> 8303134606</a></li>
             </ul>
         </div>
     </header>
 
-    <div class="container">
-        <div class="section-title">
-            <h2>हमसे संपर्क करें & दुकान की लोकेशन</h2>
-            <p>किसी भी सेवा के लिए कॉल करें या दुकान पर आएं</p>
+    <!-- Hero Header -->
+    <div class="contact-hero">
+        <h1>हमसे संपर्क करें & दुकान की लोकेशन</h1>
+        <p>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में। किसी भी सेवा के लिए बेझिझक कॉल या वॉट्सऐप करें।</p>
+    </div>
+
+    <!-- Quick Info Cards -->
+    <div class="contact-grid">
+        <div class="info-card">
+            <i class="fas fa-map-marked-alt" style="color: #059669;"></i>
+            <h3>दुकान का पता</h3>
+            <p><strong>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में</strong>, बछरावां, रायबरेली (उ.प्र.)</p>
+            <a href="#mapSection" class="action-link" style="background:#e0f2fe; color:#0369a1;">नक्शा देखें ↓</a>
         </div>
 
-        <div class="grid-3">
-            <div class="card" style="text-align: center;">
-                <i class="fas fa-map-marker-alt" style="font-size: 35px; color: #059669; margin-bottom: 15px;"></i>
-                <h3>दुकान का पता</h3>
-                <p style="font-weight: 600; font-size: 16px;">दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में,</p>
-                <p>बछरावां, रायबरेली, उत्तर प्रदेश</p>
-                <p style="margin-top: 10px; color: var(--accent-green); font-weight: bold;">समय: सुबह 8:00 से रात 8:00 बजे तक (प्रतिदिन)</p>
-            </div>
-
-            <div class="card" style="text-align: center;">
-                <i class="fab fa-whatsapp" style="font-size: 35px; color: #25D366; margin-bottom: 15px;"></i>
-                <h3>घर बैठे फॉर्म भरवाएं</h3>
-                <p>कॉलेज या घर से सीधे वॉट्सऐप पर डॉक्यूमेंट भेजें और ऑनलाइन फॉर्म का प्रिंट प्राप्त करें।</p>
-                <a href="https://wa.me/918303134606?text=Namaste,%20mujhe%20apne%20documents%20bhejne%20hain%20form%20bharwane%20ke%20liye." class="card-btn" style="background: #25D366; margin-top: 15px;">
-                    <i class="fab fa-whatsapp"></i> वॉट्सऐप पर डॉक्यूमेंट भेजें
-                </a>
-            </div>
-
-            <div class="card" style="text-align: center;">
-                <i class="fas fa-phone-volume" style="font-size: 35px; color: #1e40af; margin-bottom: 15px;"></i>
-                <h3>सीधा कॉल करें</h3>
-                <p>किसी भी सरकारी योजना, स्कॉलरशिप या बैंकिंग संबंधी जानकारी के लिए तुरंत बात करें।</p>
-                <a href="tel:+918303134606" class="card-btn" style="margin-top: 15px;">
-                    <i class="fas fa-phone"></i> +91 8303134606 पर कॉल करें
-                </a>
-            </div>
+        <div class="info-card">
+            <i class="fas fa-phone-volume" style="color: #1e40af;"></i>
+            <h3>सीधा कॉल करें</h3>
+            <p>किसी भी पूछताछ के लिए हमारे हेल्पलाइन नंबर पर तुरंत बात करें।</p>
+            <p style="font-weight: 800; font-size: 18px; color: #0f2c59; margin-top: 5px;">+91 8303134606</p>
+            <a href="tel:+918303134606" class="action-link" style="background:#0f2c59; color:#ffffff;">अभी कॉल करें</a>
         </div>
 
-        <!-- Google Maps Embed Section -->
-        <div style="margin-top: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div class="info-card">
+            <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+            <h3>वॉट्सऐप चैट</h3>
+            <p>घर बैठे डॉक्यूमेंट्स भेजें, फॉर्म भरवाएं या कोई भी सवाल पूछें।</p>
+            <p style="font-weight: 800; font-size: 18px; color: #15803d; margin-top: 5px;">+91 8303134606</p>
+            <a href="https://wa.me/918303134606?text=Namaste%20Chitransh%20Computers,%20mujhe%20online%20service%20ke%20baare%20me%20puchna%20hai." class="action-link" style="background:#25D366; color:#ffffff;">वॉट्सऐप खोलें</a>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-clock" style="color: #d97706;"></i>
+            <h3>कार्य दिवस & समय</h3>
+            <p><strong>सोमवार से रविवार:</strong><br>सुबह 8:00 AM से रात 8:00 PM तक</p>
+            <p style="color: #059669; font-weight: 700; margin-top: 8px;">✓ सातों दिन खुला रहता है</p>
+        </div>
+    </div>
+
+    <!-- Interactive WhatsApp Form & Map Section -->
+    <div class="interactive-section" id="mapSection">
+
+        <!-- Direct WhatsApp Form Sender -->
+        <div class="wa-box">
+            <h2><i class="fab fa-whatsapp" style="color: #25D366;"></i> वॉट्सऐप पर सीधे संदेश भेजें</h2>
+            <p>यहाँ विवरण भरें और सीधे हमारे वॉट्सऐप पर भेजें, हम तुरंत जवाब देंगे:</p>
+            
+            <form id="contactForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="userName">आपका नाम (Your Name):</label>
+                    <input type="text" id="userName" placeholder="उदा. अमन वर्मा" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="serviceType">सेवा का प्रकार चुनें (Select Service):</label>
+                    <select id="serviceType" required>
+                        <option value="UP Scholarship Form">UP छात्रवृत्ति (Scholarship) फॉर्म</option>
+                        <option value="Lucknow University / College Form">कॉलेज / यूनिवर्सिटी फॉर्म</option>
+                        <option value="Sarkari Naukri Form">सरकारी नौकरी भर्ती फॉर्म</option>
+                        <option value="E-Stamp / Affidavit Paper">ई-स्टाम्प / शपथ पत्र (Affidavit)</option>
+                        <option value="Bank of India / AePS Cash">बैंक खाता / आधार से निकासी</option>
+                        <option value="Bijli Bill / Traffic Challan">बिजली बिल / ट्रैफिक चालान</option>
+                        <option value="PVC Smart Card Printing">PVC आधार / स्मार्ट कार्ड प्रिंट</option>
+                        <option value="Store Product Order">कंप्यूटर / मोबाइल एक्सेसरीज ऑर्डर</option>
+                        <option value="Other Question">अन्य कोई जानकारी</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="userMessage">आपका संदेश या सवाल (Message):</label>
+                    <textarea id="userMessage" rows="3" placeholder="आप क्या पूछना चाहते हैं या क्या दस्तावेज भेज रहे हैं..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-send-wa">
+                    <i class="fab fa-whatsapp" style="font-size: 20px;"></i> वॉट्सऐप पर भेजें (Send to WhatsApp)
+                </button>
+            </form>
+        </div>
+
+        <!-- Google Maps Embed -->
+        <div class="map-box">
+            <div class="map-box-header">
+                <h3><i class="fas fa-location-arrow" style="color: #059669;"></i> दयानंद कॉलेज गेट के पास लोकेशन</h3>
+                <p>Dayanand Bachhrawan PG College Main Gate के ठीक बगल में स्थित है।</p>
+            </div>
             <iframe 
+                class="map-iframe"
                 src="https://www.google.com/maps?q=Dayanand+Bachhrawan+PG+College+Bachhrawan&output=embed" 
-                width="100%" 
-                height="380" 
-                style="border:0;" 
                 allowfullscreen="" 
                 loading="lazy">
             </iframe>
         </div>
+
     </div>
 
+    <!-- Customer Reviews / Testimonials -->
+    <div class="reviews-section">
+        <div class="reviews-title">
+            <h2>छात्रों और ग्राहकों का भरोसा ⭐</h2>
+            <p>बछरावां के लोग और कॉलेज के छात्र हमारे काम के बारे में क्या कहते हैं</p>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"दयानंद कॉलेज का स्कॉलरशिप फॉर्म मैंने यहीं से भरवाया था। कोई गलती नहीं हुई और छात्रवृत्ति भी समय पर आ गई। भैया का व्यवहार बहुत अच्छा है।"</p>
+                </div>
+                <div class="reviewer-info">
+                    <div class="avatar-circle">A</div>
+                    <div>
+                        <div class="reviewer-name">अमित कुमार</div>
+                        <div class="reviewer-role">B.Sc. छात्र, दयानंद कॉलेज</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"कॉलेज में एडमिशन के लिए तुरंत एफिडेविट और ई-स्टाम्प बनवाना था। चित्रांश कंप्यूटर्स पर मात्र 10 मिनट में सब तैयार करके मिल गया। बेस्ट सर्विस!"</p>
+                </div>
+                <div class="reviewer-info">
+                    <div class="avatar-circle" style="background: #059669;">R</div>
+                    <div>
+                        <div class="reviewer-name">रोहित सिंह</div>
+                        <div class="reviewer-role">स्थानीय निवासी, बछरावां</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div>
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"मुझे दुकान जाने का समय नहीं मिला, मैंने वॉट्सऐप पर ही पुलिस भर्ती के डाक्यूमेंट्स भेजे और इन्होंने पूरा फॉर्म भरकर प्रिंट भेज दिया। बहुत सुविधा जनक है।"</p>
+                </div>
+                <div class="reviewer-info">
+                    <div class="avatar-circle" style="background: #d97706;">P</div>
+                    <div>
+                        <div class="reviewer-name">प्रिया शर्मा</div>
+                        <div class="reviewer-role">प्रतियोगी छात्र</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Sticky Action Buttons -->
     <div class="floating-actions">
-        <a href="tel:+918303134606" class="float-btn float-call"><i class="fas fa-phone"></i></a>
-        <a href="https://wa.me/918303134606" class="float-btn float-wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+918303134606" class="float-btn float-call" title="Call Us"><i class="fas fa-phone"></i></a>
+        <a href="https://wa.me/918303134606" class="float-btn float-wa" target="_blank" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
     </div>
 
+    <!-- Master Professional Footer (Full 3-Column) -->
     <footer>
-        <div class="footer-bottom">Copyright © Chitransh Computers • Bachhrawan</div>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Chitransh Computers</h4>
+                <p>दयानंद बछरावां पीजी कॉलेज गेट के ठीक बगल में, बछरावां, रायबरेली।</p>
+                <p style="margin-top: 8px;"><strong>दुकान का समय:</strong> प्रतिदिन सुबह 8:00 AM से रात 8:00 PM तक</p>
+            </div>
+            <div class="footer-col">
+                <h4>सभी प्रमुख सेवाएं</h4>
+                <p><a href="index.html">होम पेज (Home)</a></p>
+                <p><a href="forms.html">कॉलेज & स्कॉलरशिप फॉर्म्स</a></p>
+                <p><a href="banking-legal.html">बैंकिंग, ई-स्टाम्प & एफिडेविट</a></p>
+                <p><a href="products.html">कंप्यूटर एक्सेसरीज & स्टेशनरी स्टोर</a></p>
+                <p><a href="contact.html">लोकेशन मैप & संपर्क</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>हेल्पलाइन & संपर्क</h4>
+                <p><i class="fas fa-phone-alt"></i> कॉल करें: <a href="tel:+918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p><i class="fab fa-whatsapp"></i> वॉट्सऐप: <a href="https://wa.me/918303134606" style="color: #6ee7b7; font-weight: bold;">+91 8303134606</a></p>
+                <p style="margin-top: 10px; color: #cbd5e1; font-size: 13.5px;">
+                    ⚡ घर बैठे फॉर्म भरवाने या कोई भी सामान आर्डर करने के लिए वॉट्सऐप पर संपर्क करें।
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright © Chitransh Computers. All rights reserved. | Dayanand Bachhrawan PG College Gate
+        </div>
     </footer>
+
+    <!-- Interactive Scripts -->
     <script src="script.js"></script>
+    <script>
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value.trim();
+            const service = document.getElementById('serviceType').value;
+            const message = document.getElementById('userMessage').value.trim();
+
+            let fullText = `*Namaste Chitransh Computers!*%0A%0A`;
+            fullText += `👤 *Mera Naam:* ${encodeURIComponent(name)}%0A`;
+            fullText += `📌 *Service:* ${encodeURIComponent(service)}%0A`;
+            if (message) {
+                fullText += `💬 *Sandesh/Vivaran:* ${encodeURIComponent(message)}%0A`;
+            }
+            fullText += `%0AMujhe iske baare me jankari aur form process karwana hai.`;
+
+            const waURL = `https://wa.me/918303134606?text=${fullText}`;
+            window.open(waURL, '_blank');
+        }
+    </script>
 </body>
 </html>
